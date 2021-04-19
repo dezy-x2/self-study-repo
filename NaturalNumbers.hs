@@ -1,4 +1,6 @@
--- data type for the natural nums
+import Prelude hiding (even,odd)
+
+-- * data type for the natural nums
 data NaturalNumber = Zero | S NaturalNumber
     deriving(Show)
 -- hard coded values for different numbers
@@ -33,7 +35,7 @@ instance Num NaturalNumber where
     -- deducts from `y` and calls `S` on `x` until `y` equals `Zero` 
     S x + S y = S (S x) + y 
 
-    -- Multiplication
+    -- * Multiplication
 
     -- edge case for if times by `Zero`
     Zero * S _ = Zero
@@ -43,3 +45,32 @@ instance Num NaturalNumber where
     S Zero * S x = S x
     -- this adds `S x` and `S x` together while deducting from `y` and once `y` hits `S Zero` its triggers an edge case
     S x * S y = (S x + S x) * y
+
+    fromInteger n
+        | n > 0 = S (fromInteger(n-1))
+        | n == 0 = Zero
+    
+    -- * Subraction
+
+    Zero - x = Zero
+    x - Zero = x
+    S x - S y = x - y
+
+    -- * abs 
+    abs = id
+
+    -- * signum
+    signum n
+        | n > 0 = one
+        | n == 0 = zero
+
+nat :: NaturalNumber -> NaturalNumber
+nat = id
+
+odd n
+    | n == zero = False
+    | n == one = True
+    | otherwise = odd (n-2)
+
+even n = not (odd n)
+ -- TODO: find out what remainder is and implement it
