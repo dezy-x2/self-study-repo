@@ -101,3 +101,10 @@ instance ColorId Int where
 instance ColorId [a] where
     colorId [] = Lie
     colorId _ = Truth
+
+solveRPN :: (Num a, Read a) => String -> a
+solveRPN expression = head $ foldl foldFunc [] $ words expression
+    where   foldFunc (x:y:xs) "*" = (x * y):xs
+            foldFunc (x:y:xs) "+" = (x + y):xs
+            foldFunc (x:y:xs) "-" = (x - y):xs
+            foldFunc x aNumber = (read aNumber):x 
