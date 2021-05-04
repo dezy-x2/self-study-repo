@@ -1,3 +1,5 @@
+import Control.Applicative
+
 doubleUp x = x * 2;
 
 isFive 5 = "It's a Five!!"
@@ -108,3 +110,12 @@ solveRPN expression = head $ foldl foldFunc [] $ words expression
             foldFunc (x:y:xs) "+" = (x + y):xs
             foldFunc (x:y:xs) "-" = (x - y):xs
             foldFunc x aNumber = (read aNumber):x 
+
+-- instance Functor Maybe where
+--     fmap f (Just x) = Just (f x)
+--     fmap f Nothing = Nothing
+
+-- instance Applicative Maybe where
+--     pure = Just
+--     Nothing <*> _ = Nothing
+--     (Just f) <*> something = fmap f something
