@@ -119,3 +119,8 @@ solveRPN expression = head $ foldl foldFunc [] $ words expression
 --     pure = Just
 --     Nothing <*> _ = Nothing
 --     (Just f) <*> something = fmap f something
+
+to :: (Eq a, Num a) => a -> a -> [a]
+to a b 
+    | a == b = b:[]
+    | otherwise = a:((a+1) `to` b)
