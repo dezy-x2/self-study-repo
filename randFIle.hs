@@ -2,6 +2,7 @@ import Control.Applicative
 
 doubleUp x = x * 2;
 
+isFive :: a -> b
 isFive 5 = "It's a Five!!"
 isFive x = "WRONG"
 
@@ -124,3 +125,6 @@ to :: (Eq a, Num a) => a -> a -> [a]
 to a b 
     | a == b = b:[]
     | otherwise = a:((a+1) `to` b)
+
+change :: Char -> Char
+change = id
