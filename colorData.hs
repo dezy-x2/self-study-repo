@@ -1,41 +1,45 @@
-data Color = Blue | Green | Red | Mix Color Color
+data Color = Blue | Green | Red | Black | Color [Color]
     deriving(Show)
 
-blue = Mix Blue Blue
-green = Mix Green Green
-red = Mix Red Red
-yellow = Mix Red Green
-cyan = Mix Blue Green
-magenta = Mix Blue Red
+blue = [Blue]
+green = [Green]
+red = [Red]
+yellow = [Red, Green]
+cyan = [Blue, Green]
+magenta = [Blue, Red]
 
-instance Ord Color where
-    compare Blue (Mix x y) = GT
-    compare (Mix x y) Blue = LT
-    compare Red (Mix x y) = GT
-    compare (Mix x y) Red = LT
-    compare Green (Mix x y) = GT
-    compare (Mix x y) Green = LT
-    compare (Mix x1 x2) (Mix y1 y2) = compare x1 y1
-    compare Red Red = EQ 
-    compare Green Green = EQ
-    compare Blue Blue = EQ 
-    compare Red Green = EQ
-    compare Green Red = EQ
-    compare Blue Green = EQ
-    compare Green Blue = EQ
-    compare Red Blue = EQ
-    compare Blue Red = EQ
+-- instance Ord Color where
+--     compare Blue (Mix x y) = GT
+--     compare (Mix x y) Blue = LT
+--     compare Red (Mix x y) = GT
+--     compare (Mix x y) Red = LT
+--     compare Green (Mix x y) = GT
+--     compare (Mix x y) Green = LT
+--     compare (Mix x1 x2) (Mix y1 y2) = compare x1 y1
+--     compare Red Red = EQ 
+--     compare Green Green = EQ
+--     compare Blue Blue = EQ 
+--     compare Red Green = EQ
+--     compare Green Red = EQ
+--     compare Blue Green = EQ
+--     compare Green Blue = EQ
+--     compare Red Blue = EQ
+--     compare Blue Red = EQ
 
 instance Eq Color where
     Red == Red = True
     Green == Green = True
     Blue == Blue = True
-    Mix x1 x2 == Mix y1 y2 = ((x1 == y1) && (x2 == y2)) || ((x1 == y2) && (x2 == y1))
+    (Color ((Color x):[(Color xs)])) == (Color ((Color y):([Color ys]))) = x == y && xs == ys
     x == y = False
 
-instance Num Color where
-    Mix x1 x2 + Mix y1 y2 = Mix (Mix x1 x2) (Mix y1 y2)
-    x + y = error "whatever you did don't do it again"
+-- -- subractColors color1@(Mix x1 x2) color2@(Mix y1 y2) 
+-- --     | color1 == color2 = Black
+-- --     | otherwise = subractColors
+
+-- instance Num Color where
+--     Mix x1 x2 + Mix y1 y2 = Mix (Mix x1 x2) (Mix y1 y2)
+--     x + y = error "whatever you did don't do it again"
 
     --TODO: figure out what subtraction should do
     --TODO: like how do you subract colors when they are set up like this?
