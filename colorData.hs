@@ -1,12 +1,12 @@
 data Color = Blue | Green | Red | Black | Color [Color]
     deriving(Show)
 
-blue = [Blue]
-green = [Green]
-red = [Red]
-yellow = [Red, Green]
-cyan = [Blue, Green]
-magenta = [Blue, Red]
+blue = Color [Blue]
+green = Color [Green]
+red = Color [Red]
+yellow = Color [Red, Green]
+cyan = Color [Blue, Green]
+magenta = Color [Blue, Red]
 
 -- instance Ord Color where
 --     compare Blue (Mix x y) = GT
@@ -33,13 +33,19 @@ instance Eq Color where
     (Color ((Color x):[(Color xs)])) == (Color ((Color y):([Color ys]))) = x == y && xs == ys
     x == y = False
 
--- -- subractColors color1@(Mix x1 x2) color2@(Mix y1 y2) 
--- --     | color1 == color2 = Black
--- --     | otherwise = subractColors
-
--- instance Num Color where
---     Mix x1 x2 + Mix y1 y2 = Mix (Mix x1 x2) (Mix y1 y2)
---     x + y = error "whatever you did don't do it again"
+instance Num Color where
+    -- Red + Red = Color [Red, Red]
+    -- Blue + Blue = Color [Blue, Blue]
+    -- Green + Green = Color [Green, Green]
+    -- Red + Blue = Color [Red, Blue]
+    -- Blue + Red = Color [Blue, Red]
+    -- Red + Green = Color [Red, Green]
+    -- Green + Red = Color [Green, Red]
+    -- Blue + Green = Color [Blue, Green]
+    -- Green + Blue = Color [Green, Blue]
+    -- (Color ((Color x):[(Color xs)])) + (Color ((Color y):([Color ys]))) = Color $ ([(Color x)+(Color y)])++([(Color xs) + (Color ys)])
+    color1 + color2 = Color $ [color1, color2]
+    -- x + y = error "whatever you did don't do it again"
 
     --TODO: figure out what subtraction should do
     --TODO: like how do you subract colors when they are set up like this?
