@@ -8,47 +8,26 @@ yellow = Color [Red, Green]
 cyan = Color [Blue, Green]
 magenta = Color [Blue, Red]
 
--- instance Ord Color where
---     compare Blue (Mix x y) = GT
---     compare (Mix x y) Blue = LT
---     compare Red (Mix x y) = GT
---     compare (Mix x y) Red = LT
---     compare Green (Mix x y) = GT
---     compare (Mix x y) Green = LT
---     compare (Mix x1 x2) (Mix y1 y2) = compare x1 y1
---     compare Red Red = EQ 
---     compare Green Green = EQ
---     compare Blue Blue = EQ 
---     compare Red Green = EQ
---     compare Green Red = EQ
---     compare Blue Green = EQ
---     compare Green Blue = EQ
---     compare Red Blue = EQ
---     compare Blue Red = EQ
+subtractionHelper :: Color -> Color -> Color
+subtractionHelper color1 color2 =   if color1 == color2
+                                        then Black
+                                    else color1
 
 instance Eq Color where
     Red == Red = True
     Green == Green = True
     Blue == Blue = True
-    (Color ((Color x):[(Color xs)])) == (Color ((Color y):([Color ys]))) = x == y && xs == ys
+    (Color x) == (Color y) = x == y
     x == y = False
 
 instance Num Color where
-    -- Red + Red = Color [Red, Red]
-    -- Blue + Blue = Color [Blue, Blue]
-    -- Green + Green = Color [Green, Green]
-    -- Red + Blue = Color [Red, Blue]
-    -- Blue + Red = Color [Blue, Red]
-    -- Red + Green = Color [Red, Green]
-    -- Green + Red = Color [Green, Red]
-    -- Blue + Green = Color [Blue, Green]
-    -- Green + Blue = Color [Green, Blue]
-    -- (Color ((Color x):[(Color xs)])) + (Color ((Color y):([Color ys]))) = Color $ ([(Color x)+(Color y)])++([(Color xs) + (Color ys)])
     color1 + color2 = Color $ [color1, color2]
-    -- x + y = error "whatever you did don't do it again"
 
     --TODO: figure out what subtraction should do
     --TODO: like how do you subract colors when they are set up like this?
+
+    (Color (x:xs)) - (Color (y:ys)) = Color $ [(subtractionHelper x y), ((Color xs) - (Color ys))]
+    x - y = x
 
     --TODO: use fromInteger to convert primary colors to their wavelengths and then multiply those!!
 
