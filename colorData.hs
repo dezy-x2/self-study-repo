@@ -44,18 +44,8 @@ instance Num Color where
     abs = id
     signum = id
 
--- primaryOrNot :: Color -> Bool
--- primaryOrNot color 
---     | color == Red = True
---     | color == Green = True
---     | color == Blue = True
---     | otherwise = False
-
--- baseColors :: Color -> Maybe (Color, Color)
--- baseColors color
---     | color == Green = Just (Green, Blue)
---     | color == Orange = Just (Green, Red)
---     | color == Violet = Just (Blue, Red)
---     | otherwise = Nothing
+baseColors :: Color -> [Color]
+baseColors (Color (x:xs)) = [x, Color (baseColors (Color xs))]
+baseColors (Color []) = []
 
 
