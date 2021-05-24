@@ -31,15 +31,13 @@ instance Num Color where
 
     --TODO: use fromInteger to convert primary colors to their wavelengths and then multiply those!!
 
-    -- x * y = Rainbow
+    -- x * y = 
 
-    -- fromInteger 1 = Red
-    -- fromInteger 2 = Green
-    -- fromInteger 3 = Blue
-    -- fromInteger 4 = Green
-    -- fromInteger 5 = Orange
-    -- fromInteger 6 = Violet
-    -- fromInteger x = Rainbow
+    fromInteger num
+        | 563 < num && num < 580 = Color [Red]
+        | 533 < num && num < 546 = Color [Green]
+        | 419 < num && num < 440 = Color [Blue]
+        | otherwise = Black
 
     -- abs = id
     -- signum = id
@@ -58,15 +56,4 @@ instance Num Color where
 --     | color == Violet = Just (Blue, Red)
 --     | otherwise = Nothing
 
--- matchOrNo :: Color -> Color -> Bool
--- matchOrNo Green Red = True
--- matchOrNo Red Green = True
--- matchOrNo Orange Blue = True
--- matchOrNo Blue Orange = True
--- matchOrNo Green Violet = True
--- matchOrNo Violet Green = True
--- matchOrNo Rainbow Rainbow = True
--- matchOrNo Rainbow x = True
--- matchOrNo x Rainbow = True
--- matchOrNo x y = False
 
