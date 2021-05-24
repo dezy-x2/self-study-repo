@@ -1,4 +1,4 @@
-data Color = Blue | Green | Red | Black | Color [Color]
+data Color = Blue | Green | Red | Black | White | Color [Color]
     deriving(Show)
 
 blue = Color [Blue]
@@ -17,6 +17,8 @@ instance Eq Color where
     Red == Red = True
     Green == Green = True
     Blue == Blue = True
+    Black == Black = True
+    White == White = True
     (Color x) == (Color y) = x == y
     x == y = False
 
@@ -31,16 +33,16 @@ instance Num Color where
 
     --TODO: use fromInteger to convert primary colors to their wavelengths and then multiply those!!
 
-    -- x * y = 
+    x * y = Color [White]
 
     fromInteger num
         | 563 < num && num < 580 = Color [Red]
         | 533 < num && num < 546 = Color [Green]
         | 419 < num && num < 440 = Color [Blue]
-        | otherwise = Black
+        | otherwise = Color [Black]
 
-    -- abs = id
-    -- signum = id
+    abs = id
+    signum = id
 
 -- primaryOrNot :: Color -> Bool
 -- primaryOrNot color 
